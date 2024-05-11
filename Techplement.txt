@@ -1,0 +1,37 @@
+import random
+import string
+
+#This function takes parameters length & it create char based on user requirement
+def generate_password(length, uppercase=True, lowercase=True, digits=True, special_chars=True):
+
+    characters = ''
+    if uppercase:
+        characters += string.ascii_uppercase
+    if lowercase:
+        characters += string.ascii_lowercase
+    if digits:
+        characters += string.digits
+    if special_chars:
+        characters += string.punctuation
+
+    # Check the characters is empty or not
+    if not characters:
+        raise ValueError("At least one character type should be included.")
+
+    # Generate random password
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+# it allow user to provide user input as password by specifying length char and number
+password_length = int(input("Enter password length: "))
+use_uppercase = input("Include uppercase letters? (y/n): ").lower() == 'y'
+use_lowercase = input("Include lowercase letters? (y/n): ").lower() == 'y'
+use_digits = input("Include digits? (y/n): ").lower() == 'y'
+use_special_chars = input("Include special characters? (y/n): ").lower() == 'y'
+
+# it throw the error if the password generation is wrong
+try:
+    password = generate_password(password_length, use_uppercase, use_lowercase, use_digits, use_special_chars)
+    print("Generated Password:", password)
+except ValueError as e:
+    print(e)
